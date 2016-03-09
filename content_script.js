@@ -1,10 +1,11 @@
 var keyWords = ["疯狂动物城", "攻壳机动队", "AlphaGo", "papi酱", "Negar"];
 
-var $div = $('<div class="block-info"><p>这里有一个被屏蔽的答案</p><button class="block-btn">手贱一下</button></div>');
+var $div = $('<div class="block-info"><p>这里有一个被屏蔽的答案<span></span></p><button class="block-btn">手贱一下</button></div>');
 $div.css({
     "backgroundColor" : "#EFF6FA", 
     "height":"64px"
 });
+console.log($div);
 
 var allContents = $(".feed-main");
 for (var i = 0; i < allContents.length; i++) {
@@ -21,7 +22,11 @@ for (var i = 0; i < allContents.length; i++) {
         if (allContents[i].outerHTML.indexOf(keyWord) >= 0 &&
                 $(allContents[i]).siblings('.block-info').length === 0) {
             $(allContents[i]).addClass('hidden');
-            $div.clone().insertAfter(allContents[i]);
+            // 复制并插入前面创建的div
+            var $divClone = $div.clone();
+            console.log($divClone);
+            $divClone.find('span').text('    【屏蔽的关键词为：' + keyWord + '】');
+            $divClone.insertAfter(allContents[i]);
 
             // 给当前加入的div中的按钮上加入点击事件
             addBtnEvent($(allContents[i]).siblings('.block-info').children('.block-btn'));
