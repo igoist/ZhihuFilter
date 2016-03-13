@@ -5,7 +5,17 @@
 // Called when the user clicks on the browser action.
 chrome.browserAction.onClicked.addListener(function(tab) {
     // No tabs or host permissions needed!
-    console.log('Turning ' + tab.url + ' red!');
+
     chrome.tabs.executeScript(null, {file: "jquery-2.2.1.js"});
     chrome.tabs.executeScript(null, {file: "content_script.js"});
 });
+
+// chrome.webNavigation.onCompleted.addListener(function(tab) {
+//     chrome.tabs.executeScript(null, {file: "jquery-2.2.1.js"});
+//     chrome.tabs.executeScript(null, {file: "content_script.js"});
+// });
+
+// document.addEventListener('DOMContentLoaded', function({
+//     chrome.tabs.executeScript(null, {file: "jquery-2.2.1.js"});
+//     chrome.tabs.executeScript(null, {file: "content_script.js"});    
+// }), false);

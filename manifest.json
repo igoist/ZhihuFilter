@@ -1,16 +1,23 @@
 {
   "name": "Zhihu Filter",
-  "description": "屏蔽知乎上不感兴趣的内容",
+  "description": "屏蔽知乎首页不感兴趣的内容",
   "version": "0.1",
   "permissions": [
-    "activeTab"
+    "activeTab",
+    "webNavigation", "*://*/*"
   ],
-  "background": {
-    "scripts": ["jquery-2.2.1.js","background.js"],
-    "persistent": false
-  },
+   "background": {
+     "scripts": ["jquery-2.2.1.js","background.js"],
+     "persistent": false
+   },
   "browser_action": {
     "default_title": "知乎防剧透插件"
   },
+  "content_scripts": [
+    {
+      "matches": ["*://*.zhihu.com/*"],
+      "js": ["jquery-2.2.1.js", "content_script.js"]
+    }
+  ],
   "manifest_version": 2
 }

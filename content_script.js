@@ -1,40 +1,58 @@
-var keyWords = ["疯狂动物城", "攻壳机动队", "AlphaGo", "papi酱", "Negar"];
+console.log("插件开始运行……")
+
+// 用于测试的关键字
+var keyWords = ["疯狂动物城", "攻壳机动队", "AlphaGo", "papi酱", "Negar", "比亚迪"];
 
 var $div = $('<div class="block-info"><p>这里有一个被屏蔽的答案<span></span></p><button class="block-btn">手贱一下</button></div>');
 $div.css({
     "backgroundColor" : "#EFF6FA", 
     "height":"64px"
 });
-console.log($div);
+var count = 0;  // 记录一下对页面处理了多少次，测试用
 
-var allContents = $(".feed-main");
-for (var i = 0; i < allContents.length; i++) {
-    // debugger;
-    for (var j = 0; j < keyWords.length; j++) {
-        var keyWord = keyWords[j];
-        // if (allContents[i].outerHTML.indexOf(keyWord) >= 0) {
-        //     $(allContents[i]).addClass('hidden');
-        //     $div.clone().insertAfter($(allContents[i]).filter(function() {
-        //         return !$(this).siblings('.block-info').length;
-        //     }));
-        //     continue;
-        // }
-        if (allContents[i].outerHTML.indexOf(keyWord) >= 0 &&
-                $(allContents[i]).siblings('.block-info').length === 0) {
-            $(allContents[i]).addClass('hidden');
-            // 复制并插入前面创建的div
-            var $divClone = $div.clone();
-            console.log($divClone);
-            $divClone.find('span').text('    【屏蔽的关键词为：' + keyWord + '】');
-            $divClone.insertAfter(allContents[i]);
+window.onload = function() {
+    processPage();
+    setStyle();
+};
 
-            // 给当前加入的div中的按钮上加入点击事件
-            addBtnEvent($(allContents[i]).siblings('.block-info').children('.block-btn'));
-            break;
-        }       
+// 当页面加载更多答案的时候，重新运行处理程序。
+// TODO: 这里更好的办法是检测 XHR 或 MutationObserver，暂时用循环处理来代替
+setInterval(function() {
+    processPage();
+    setStyle();
+}, 3000);
+
+
+/* 主要的处理函数 */
+function processPage() {
+    var allContents = $(".feed-main");
+    for (var i = 0; i < allContents.length; i++) {
+        // debugger;
+        for (var j = 0; j < keyWords.length; j++) {
+            var keyWord = keyWords[j];
+            // if (allContents[i].outerHTML.indexOf(keyWord) >= 0) {
+            //     $(allContents[i]).addClass('hidden');
+            //     $div.clone().insertAfter($(allContents[i]).filter(function() {
+            //         return !$(this).siblings('.block-info').length;
+            //     }));
+            //     continue;
+            // }
+            if (allContents[i].outerHTML.indexOf(keyWord) >= 0 &&
+                    $(allContents[i]).siblings('.block-info').length === 0) {
+                $(allContents[i]).addClass('hidden');
+                // 复制并插入前面创建的div
+                var $divClone = $div.clone();
+                $divClone.find('span').text('    【屏蔽的关键词为：' + keyWord + '】');
+                $divClone.insertAfter(allContents[i]);
+    
+                // 给当前加入的div中的按钮上加入点击事件
+                addBtnEvent($(allContents[i]).siblings('.block-info').children('.block-btn'));
+                break;
+            }       
+        }
     }
+    console.log(count++);
 }
-setStyle();
 
 function setStyle() {
     $('.block-btn').css({
@@ -70,5 +88,5 @@ function addBtnEvent(btn) {
     //     $(this).parent().siblings('.feed-main').addClass('hidden');
     //     $(this).parent().find('p').removeClass('hidden');
     // }
-});
+    });
 }
