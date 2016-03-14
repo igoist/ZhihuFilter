@@ -1,4 +1,4 @@
-console.log("插件开始运行……")
+console.log("插件开始运行……");
 
 // 用于测试的关键字
 var keyWords = ["疯狂动物城", "攻壳机动队", "AlphaGo", "papi酱", "Negar", "比亚迪"];
@@ -17,26 +17,33 @@ window.onload = function() {
 
 // 当页面加载更多答案的时候，重新运行处理程序。
 // TODO: 这里更好的办法是检测 XHR 或 MutationObserver，暂时用循环处理来代替
-setInterval(function() {
+//setInterval(function() {
+//    processPage();
+//    setStyle();
+//}, 3000);
+
+// 使用MutationObserver来检测页面的变动
+var MutationObserver = window.MutationObserver
+    || window.WebKitMutationObserver
+    || window.MozMutationObserver;
+var observer = new MutationObserver(function() {
     processPage();
     setStyle();
-}, 3000);
+    console.log("dom changed");
+});
+var option = {
+    'childList' : true,
+    'subtree' : true
+};
+observer.observe(document.body, option);
 
 
 /* 主要的处理函数 */
 function processPage() {
     var allContents = $(".feed-main");
     for (var i = 0; i < allContents.length; i++) {
-        // debugger;
         for (var j = 0; j < keyWords.length; j++) {
             var keyWord = keyWords[j];
-            // if (allContents[i].outerHTML.indexOf(keyWord) >= 0) {
-            //     $(allContents[i]).addClass('hidden');
-            //     $div.clone().insertAfter($(allContents[i]).filter(function() {
-            //         return !$(this).siblings('.block-info').length;
-            //     }));
-            //     continue;
-            // }
             if (allContents[i].outerHTML.indexOf(keyWord) >= 0 &&
                     $(allContents[i]).siblings('.block-info').length === 0) {
                 $(allContents[i]).addClass('hidden');
