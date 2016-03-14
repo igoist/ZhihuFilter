@@ -1,7 +1,7 @@
 console.log("插件开始运行……");
 
 // 用于测试的关键字
-var keyWords = ["疯狂动物城", "攻壳机动队", "AlphaGo", "papi酱", "Negar", "比亚迪"];
+var keyWords = ["疯狂动物城", "攻壳机动队", "AlphaGo", "papi酱", "Negar", "比亚迪", "和菜头"];
 
 var $div = $('<div class="block-info"><p>这里有一个被屏蔽的答案<span></span></p><button class="block-btn">手贱一下</button></div>');
 $div.css({
