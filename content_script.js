@@ -64,11 +64,15 @@ function processPage() {
 function setStyle() {
     $('.block-btn').css({
         "position" : "absolute",
-        "left" : "50%", 
-        "top" : "auto",
+        "left" : "50%",
         "bottom" : "12px",
+        "border" : "none",
+        "border-radius" : "3px",
+        "padding" : "1px 3px",
+        "margin-bottom" : "3px",
+        "font-size" : "0.9em",
         "color" : "#fff",
-        "opacity" : ".9",
+        "opacity" : ".8",
         "backgroundColor" : "#81baeb"
     });
     $('.block-info>p').css({
@@ -80,20 +84,23 @@ function setStyle() {
 
 function addBtnEvent(btn) {
     btn.on('click', function() {
-    $(this).parent().siblings('.feed-main').toggleClass('hidden');
-    $(this).parent().find('p').toggleClass('hidden');
+        $(this).parent().siblings('.feed-main').toggleClass('hidden');
+        $(this).parent().find('p').toggleClass('hidden');
 
-    // if ($(this).text().indexOf("手贱") >= 0) {
-    //     console.log($(this).text());
-    //     $(this).text("啊，没防备啊！");
-    //     $(this).parent().siblings('.feed-main').removeClass('hidden');
-    //     console.log("remove hidden");
-    //     $(this).parent().find('p').addClass('hidden');
-    // } else {
-    //             console.log($(this).text());
-    //     $(this).text("再手贱一下");
-    //     $(this).parent().siblings('.feed-main').addClass('hidden');
-    //     $(this).parent().find('p').removeClass('hidden');
-    // }
+        // 改变按钮上的文字
+        if ($(this).text().indexOf("手贱") >= 0) {
+            $(this).text("啊，没防备啊！");
+        } else {
+            $(this).text("再手贱一下");
+        }
+    });
+
+    // 鼠标移动到按钮上时改动其样式
+    btn.mouseenter(function() {
+        $(this).css({"opacity" : "1"});
+        //$(this).css({"color" : "red"});
+    }).mouseleave(function() {
+        //$(this).css({"color" : "white"});
+        $(this).css({"opacity" : "0.8"});
     });
 }
