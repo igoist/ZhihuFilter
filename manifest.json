@@ -7,7 +7,7 @@
     "webNavigation", "*://*/*"
   ],
    "background": {
-     "scripts": ["jquery-2.2.1.js","background.js"],
+     "scripts": ["js/jquery-2.2.1.js","js/background.js"],
      "persistent": false
    },
   "browser_action": {
@@ -16,8 +16,9 @@
   "content_scripts": [
     {
       "matches": ["*://*.zhihu.com/*"],
-      "js": ["jquery-2.2.1.js", "content_script.js"]
+      "js": ["js/jquery-2.2.1.js", "js/content_script.js"]
     }
   ],
+  "options_page": "options.html",
   "manifest_version": 2
 }

@@ -19,3 +19,10 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 //     chrome.tabs.executeScript(null, {file: "jquery-2.2.1.js"});
 //     chrome.tabs.executeScript(null, {file: "content_script.js"});    
 // }), false);
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if (request.method == "getKeywords")
+        sendResponse({keywords: localStorage['keywords']});
+    else
+        sendResponse({});
+});
