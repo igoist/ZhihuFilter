@@ -4,32 +4,30 @@ console.log("插件开始运行……");
 var testKeywords = ["疯狂动物城", "攻壳机动队", "AlphaGo", "papi酱", "Negar", "比亚迪", "和菜头", "小米5"];
 var str = '';
 var keywords = [];
+var count = 0;  // 记录一下对页面处理了多少次，测试用
+
+// 从扩展的localStorage中获得存储的关键词
 chrome.runtime.sendMessage({method: "getKeywords"}, function (response) {
     str = response.keywords;
-    keywords = str !== '' ? str.split(',') : ["辐射"];
+    keywords = str !== '' ? str.split(',') : testKeywords;
 });
-console.log("这里的关键字为：" + keywords);
 
-// 创建用于替换的div
-var $div = $('<div class="block-info"><p>这里有一个被屏蔽的答案<span></span></p><button class="block-btn">手贱一下</button></div>');
+// 创建用于替换的div，并设置其样式
+var $div = $('<div class="block-info"></div>');
+$div.append($('<p>这里有一个被屏蔽的答案<span></span></p>'));
+$div.append($('<button class="block-btn">手贱一下</button>'));
 $div.css({
     "backgroundColor" : "#EFF6FA", 
     "height":"64px"
 });
-var count = 0;  // 记录一下对页面处理了多少次，测试用
 
 window.onload = function() {
     processPage();
     setStyle();
 };
 
-// 当页面加载更多答案的时候，重新运行处理程序。
-// TODO: 这里更好的办法是检测 XHR 或 MutationObserver，暂时用循环处理来代替
-//setInterval(function() {
-//    processPage();
-//    setStyle();
-//}, 3000);
-
+// 当页面加载更多答案的时候，重新运行处理程序
+// TODO: 这里更好的办法是检测 XHR 或 MutationObserver
 // 使用MutationObserver来检测页面的变动
 var MutationObserver = window.MutationObserver
     || window.WebKitMutationObserver
@@ -43,7 +41,6 @@ var option = {
     'subtree' : true
 };
 observer.observe(document.body, option);
-
 
 /* 主要的处理函数 */
 function processPage() {
