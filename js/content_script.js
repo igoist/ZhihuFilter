@@ -6,10 +6,11 @@ var str = '';
 var keywords = [];
 chrome.runtime.sendMessage({method: "getKeywords"}, function (response) {
     str = response.keywords;
-    keywords = str !== '' ? str.split(' ') : ["辐射"];
+    keywords = str !== '' ? str.split(',') : ["辐射"];
 });
 console.log("这里的关键字为：" + keywords);
 
+// 创建用于替换的div
 var $div = $('<div class="block-info"><p>这里有一个被屏蔽的答案<span></span></p><button class="block-btn">手贱一下</button></div>');
 $div.css({
     "backgroundColor" : "#EFF6FA", 
