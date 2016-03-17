@@ -12,6 +12,8 @@
 
 ![](demo-images/block1.png)
 
+下载安装 ZhihuFilter.crx 进行试用。
+
 【开发仍在进行中……】
 
 ## 尚未开发功能及需要改进的地方：
