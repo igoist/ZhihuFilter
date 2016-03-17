@@ -11,11 +11,16 @@
     </style>
 </head>
 <body>
-<p>你已经屏蔽了下面的关键词：</p>
-<p id="display-keywords"></p>
-<p style="clear:left">请在下面输入想屏蔽的关键字（多个关键词之间用英文逗号","隔开）：</p>
-<input id="new-word" type="text" placeholder="在这里输入">
-<input type="button" id="save" value="保存" />
+    <div>
+        <p>你已经屏蔽了下面的关键词：</p>
+        <p id="display-keywords"></p>
+    </div>
+    <div id="input-keywords">
+        <p style="clear:left">请在下面输入想屏蔽的关键词（多个词语之间用英文逗号","隔开）：</p>
+        <input id="new-word" type="text" placeholder="在这里输入">
+        <input type="button" id="save" value="保存" />
+    </div>
+
 <script type="text/javascript" src="js/jquery-2.2.1.js"></script>
 <script type="text/javascript" src="js/popup.js"></script>
 </body>
