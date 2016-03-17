@@ -10,6 +10,14 @@ function displayKeywords() {
         var wordSpan = document.createElement('span');
         wordSpan.innerHTML = keywordsDisplay[i];
         wordSpan.className = "item-word";
+        // 添加关键词右侧的删除按钮
+        var removeButton = document.createElement('a');
+        removeButton.className = "remove-button";
+        removeButton.onclick = function() {
+            //console.log(this.parentNode.firstChild.nodeValue);
+            removeFromLocalStorage(this.parentNode.firstChild.nodeValue);
+        };
+        wordSpan.appendChild(removeButton);
         document.getElementById('display-keywords').appendChild(wordSpan);
     }
 }
@@ -26,6 +34,11 @@ document.getElementById('save').onclick = function(){
 
     if (newWord !== ' ') {  // 这个判断用于防止把空格作为关键字
         if (localStorage.keywords && localStorage.keywords !== '') {
+            if (keywordsDisplay.indexOf(newWord) > -1) {
+                // 这里判断元素是否已存在
+                alert(newWord + "已经存在");
+                return;
+            }
             localStorage.keywords += (',' + newWord);
         } else {
             localStorage.keywords = newWord;
@@ -33,4 +46,17 @@ document.getElementById('save').onclick = function(){
         displayKeywords();
     }
 };
+
+// 从localStorage中删除一个关键词
+function removeFromLocalStorage(value) {
+    var values = localStorage.keywords.split(',');
+    for(var i = 0 ; i < values.length ; i++) {
+        if(values[i] == value) {
+            values.splice(i, 1);
+            localStorage.keywords = values.join(',');
+            displayKeywords();
+            return;
+        }
+    }
+}
 

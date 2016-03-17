@@ -6,7 +6,7 @@
 
 屏蔽后的答案如下所示：
 
-![](images/block1.png)
+![](demo-images/block1.png)
 
 【开发仍在进行中……】
 
