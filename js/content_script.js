@@ -21,10 +21,10 @@ $div.css({
     "height":"64px"
 });
 
-//window.onload = function() {
-//    processPage();
-//    setStyle();
-//};
+window.onload = function() {
+    processPage();
+    setStyle();
+};
 
 // 当页面加载更多答案的时候，重新运行处理程序
 // TODO: 这里更好的办法是检测 XHR 或 MutationObserver
