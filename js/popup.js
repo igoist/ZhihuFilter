@@ -14,7 +14,6 @@ function displayKeywords() {
         var removeButton = document.createElement('a');
         removeButton.className = "remove-button";
         removeButton.onclick = function() {
-            //console.log(this.parentNode.firstChild.nodeValue);
             removeFromLocalStorage(this.parentNode.firstChild.nodeValue);
         };
         wordSpan.appendChild(removeButton);
@@ -51,7 +50,7 @@ document.getElementById('save').onclick = function(){
 function removeFromLocalStorage(value) {
     var values = localStorage.keywords.split(',');
     for(var i = 0 ; i < values.length ; i++) {
-        if(values[i] == value) {
+        if(values[i] === value) {
             values.splice(i, 1);
             localStorage.keywords = values.join(',');
             displayKeywords();

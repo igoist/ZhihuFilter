@@ -9,7 +9,7 @@ var count = 0;  // 记录一下对页面处理了多少次，测试用
 // 从扩展的localStorage中获得存储的关键词
 chrome.runtime.sendMessage({method: "getKeywords"}, function (response) {
     str = response.keywords;
-    keywords = str !== '' ? str.split(',') : testKeywords;
+    keywords = str !== '' ? str.split(',') : [];
 });
 
 // 创建用于替换的div，并设置其样式
@@ -21,10 +21,10 @@ $div.css({
     "height":"64px"
 });
 
-window.onload = function() {
-    processPage();
-    setStyle();
-};
+//window.onload = function() {
+//    processPage();
+//    setStyle();
+//};
 
 // 当页面加载更多答案的时候，重新运行处理程序
 // TODO: 这里更好的办法是检测 XHR 或 MutationObserver
@@ -94,11 +94,17 @@ function addBtnEvent(btn) {
         $(this).parent().siblings('.feed-main').toggleClass('hidden');
         $(this).parent().find('p').toggleClass('hidden');
 
-        // 改变按钮上的文字
+        // 改变按钮上的文字及样式
         if ($(this).text().indexOf("手贱") >= 0) {
-            $(this).text("啊，没防备啊！");
+            $(this).parent().css({"height":"32px"});
+            if ($(this).text().indexOf("再手贱一下") >= 0) {
+                $(this).text("我怎么就管不住这手呢？");
+            } else {
+                $(this).text("啊，没防备啊！");
+            }
         } else {
             $(this).text("再手贱一下");
+            $(this).parent().css({"height":"64px"});
         }
     });
 
