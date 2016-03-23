@@ -42,6 +42,7 @@ document.getElementById('save').onclick = function(){
         } else {
             localStorage.keywords = newWord;
         }
+        document.getElementById('new-word').value = "";
         displayKeywords();
     }
 };

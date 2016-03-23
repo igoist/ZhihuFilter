@@ -22,25 +22,37 @@ $div.css({
 });
 
 window.onload = function() {
+    //alert("window onload");
     processPage();
     setStyle();
 };
+//processPage();
+//setStyle();
 
 // 当页面加载更多答案的时候，重新运行处理程序
-// TODO: 这里更好的办法是检测 XHR 或 MutationObserver
 // 使用MutationObserver来检测页面的变动
 var MutationObserver = window.MutationObserver
-    || window.WebKitMutationObserver
-    || window.MozMutationObserver;
-var observer = new MutationObserver(function() {
-    processPage();
-    setStyle();
+    || window.WebKitMutationObserver;
+var observer = new MutationObserver(function(mutationRecords) {
+    for (var i = 0; i < mutationRecords.length; i++) {
+        var mutation = mutationRecords[i];
+        if (typeof mutation.addedNodes == "object") {
+            var jq = $(mutation.addedNodes);
+            if(jq.find("div.feed-main").length > 0) {
+                // TODO: 这里获得了新增的每一条答案，需要把函数改成对每一条答案单独处理，而不是在一个函数内处理所有的内容
+                processPage();
+                setStyle();
+                return;
+            }
+        }
+    }
 });
 var option = {
-    'childList' : true,
-    'subtree' : true
+    'childList': true,
+    'subtree': true,
+    'attributes': false
 };
-observer.observe(document.body, option);
+observer.observe($('#js-home-feed-list')[0], option);
 
 /* 主要的处理函数 */
 function processPage() {
@@ -64,7 +76,8 @@ function processPage() {
             }
         }
     }
-    console.log(count++);
+    count += 1;
+    console.log("ZhihuFilter插件已运行次数：" + count);
 }
 
 function setStyle() {
