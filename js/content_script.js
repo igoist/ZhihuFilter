@@ -21,13 +21,17 @@ $div.css({
     "height":"64px"
 });
 
-window.onload = function() {
-    //alert("window onload");
+// keywords是异步获取的，可能运行至此，值还没有传过来，所以用延时来解决
+if (keywords.length === 0) {
+    setTimeout(function() {
+        processPage();
+        setStyle();
+    }, 1500);
+} else {
     processPage();
     setStyle();
-};
-//processPage();
-//setStyle();
+}
+
 
 // 当页面加载更多答案的时候，重新运行处理程序
 // 使用MutationObserver来检测页面的变动
@@ -36,9 +40,10 @@ var MutationObserver = window.MutationObserver
 var observer = new MutationObserver(function(mutationRecords) {
     for (var i = 0; i < mutationRecords.length; i++) {
         var mutation = mutationRecords[i];
-        if (typeof mutation.addedNodes == "object") {
-            var jq = $(mutation.addedNodes);
-            if(jq.find("div.feed-main").length > 0) {
+        if (mutation.addedNodes.length > 0) {
+            var $addNode = $(mutation.addedNodes);
+            // 检查新增的节点里是否有 class=feed-main 的元素
+            if($addNode.find("div.feed-main").length > 0) {
                 // TODO: 这里获得了新增的每一条答案，需要把函数改成对每一条答案单独处理，而不是在一个函数内处理所有的内容
                 processPage();
                 setStyle();
