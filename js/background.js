@@ -1,24 +1,10 @@
-// Copyright (c) 2011 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 // Called when the user clicks on the browser action.
-chrome.browserAction.onClicked.addListener(function(tab) {
-    // No tabs or host permissions needed!
-
-    chrome.tabs.executeScript(null, {file: "jquery-2.2.1.js"});
-    chrome.tabs.executeScript(null, {file: "content_script.js"});
-});
-
-// chrome.webNavigation.onCompleted.addListener(function(tab) {
-//     chrome.tabs.executeScript(null, {file: "jquery-2.2.1.js"});
-//     chrome.tabs.executeScript(null, {file: "content_script.js"});
-// });
-
-// document.addEventListener('DOMContentLoaded', function({
-//     chrome.tabs.executeScript(null, {file: "jquery-2.2.1.js"});
-//     chrome.tabs.executeScript(null, {file: "content_script.js"});    
-// }), false);
+//chrome.browserAction.onClicked.addListener(function(tab) {
+//    // No tabs or host permissions needed!
+//
+//    chrome.tabs.executeScript(null, {file: "jquery-2.2.1.js"});
+//    chrome.tabs.executeScript(null, {file: "content_script.js"});
+//});
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.method == "getKeywords")
@@ -26,3 +12,22 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     else
         sendResponse({});
 });
+
+// show the popup when the user clicks on the page action.
+//chrome.pageAction.onClicked.addListener(function(tab) {
+//    chrome.pageAction.show(tab.id);
+//    chrome.tabs.executeScript(null, {file: "jquery-2.2.1.js"});
+//    chrome.tabs.executeScript(null, {file: "content_script.js"});
+//});
+
+// listen for any changes to the URL of any tab.
+chrome.tabs.onUpdated.addListener(function(id, info, tab){
+    if (tab.url.toLowerCase().indexOf("zhihu.com") > -1){
+        chrome.pageAction.show(id);
+        chrome.pageAction.setPopup({
+            tabId: id,
+            popup: 'popup.html'
+        });
+    }
+});
+

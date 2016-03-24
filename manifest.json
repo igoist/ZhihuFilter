@@ -3,17 +3,17 @@
   "description": "屏蔽知乎首页不感兴趣的内容",
   "version": "0.1",
   "permissions": [
-    "activeTab",
+    "tabs",
     "webNavigation", "*://*/*"
   ],
    "background": {
      "scripts": ["js/jquery-2.2.1.js","js/background.js"],
-     "persistent": false
+     "persistent": true
    },
-  "browser_action": {
+  "page_action": {
     "default_icon": "images/icon.png",
-    "default_title": "知乎屏蔽插件",
-    "default_popup": "popup.html"
+    "default_title": "知乎屏蔽插件"
+//    "default_popup": "popup.html"
   },
   "content_scripts": [
     {
