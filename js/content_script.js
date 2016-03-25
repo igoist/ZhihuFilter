@@ -1,4 +1,4 @@
-console.log("插件开始运行……");
+console.log("扩展开始运行……");
 
 // 用于测试的关键字
 var testKeywords = ["疯狂动物城", "攻壳机动队", "AlphaGo", "papi酱", "Negar", "比亚迪", "和菜头", "小米5"];
@@ -82,7 +82,7 @@ function processPage() {
         }
     }
     count += 1;
-    console.log("ZhihuFilter插件已运行次数：" + count);
+    console.log("ZhihuFilter扩展已运行次数：" + count);
 }
 
 function setStyle() {
