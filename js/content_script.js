@@ -32,7 +32,6 @@ if (keywords.length === 0) {
     setStyle();
 }
 
-
 // 当页面加载更多答案的时候，重新运行处理程序
 // 使用MutationObserver来检测页面的变动
 var MutationObserver = window.MutationObserver
@@ -52,21 +51,29 @@ var observer = new MutationObserver(function(mutationRecords) {
         }
     }
 });
-var option = {
+var observerOption = {
     'childList': true,
     'subtree': true,
     'attributes': false
 };
-observer.observe($('#js-home-feed-list')[0], option);
+observer.observe($('#js-home-feed-list')[0], observerOption);
+
+
+var extensionOption = getOptions();
 
 /* 主要的处理函数 */
 function processPage() {
     var allContents = $(".feed-main");
     for (var i = 0; i < allContents.length; i++) {
+        var outerHTML = allContents[i].outerHTML;
         for (var j = 0; j < keywords.length; j++) {
             var keyword = keywords[j];
+            if (!extensionOption.caseSensitive) {   // 不区分大小写
+                keyword = keyword.toLowerCase();
+                outerHTML = outerHTML.toLowerCase();
+            }
             if (keyword !== '') {   // 防止出现所有答案都被屏蔽的情况（可以用其它的方法来避免）
-                if (allContents[i].outerHTML.indexOf(keyword) >= 0 &&
+                if (outerHTML.indexOf(keyword) >= 0 &&
                     $(allContents[i]).siblings('.block-info').length === 0) {
                     $(allContents[i]).addClass('hidden');
                     // 复制并插入前面创建的div
@@ -132,4 +139,17 @@ function addBtnEvent(btn) {
     }).mouseleave(function() {
         $(this).css({"opacity" : "0.8"});
     });
+}
+
+// 获取扩展的设置选项
+function getOptions() {
+    var options = {
+        'caseSensitive': false
+    };
+    chrome.storage.sync.get({
+        caseSensitive: false
+    }, function (items) {
+        options.caseSensitive = items.caseSensitive;
+    });
+    return options;
 }

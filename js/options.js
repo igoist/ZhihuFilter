@@ -1,24 +1,23 @@
-//document.getElementById('save').onclick = function(){
-//    console.log(localStorage.keywords);
-//    var newWord = document.getElementById('new-word').value;
-//
-//    if (newWord !== ' ') {  // 这个判断用于防止把空格作为关键字
-//        if (localStorage.keywords && localStorage.keywords !== '') {
-//            localStorage.keywords += (',' + newWord);
-//        } else {
-//            localStorage.keywords = newWord;
-//        }
-//        document.getElementById('display-keywords').innerHTML = '这里是已保存的关键字：<br>' + localStorage.keywords.toString();
-//    }
-//};
-//
-//var keywordsDisplay = localStorage.keywords.split(',');
-//
-//console.log(keywordsDisplay);
-//
-//for(var i = 0; i < keywordsDisplay.length; i++) {
-//    var wordSpan = document.createElement('span');
-//    wordSpan.innerHTML = keywordsDisplay[i];
-//    wordSpan.className = "item-word";
-//    document.getElementById('display-keywords').appendChild(wordSpan);
-//}
+function saveOptions() {
+    var caseSensitive = document.getElementById("case-sensitive").checked;
+    chrome.storage.sync.set({
+        caseSensitive: caseSensitive
+    }, function() {
+        var status = document.getElementById("status");
+        status.textContent = "选项已保存";
+        setTimeout(function() {
+            status.textContent = "";
+        }, 750);
+    });
+}
+
+function restoreOptions() {
+    chrome.storage.sync.get({
+        caseSensitive: false
+    }, function(items) {
+        document.getElementById("case-sensitive").checked = items.caseSensitive;
+    });
+}
+
+document.addEventListener("DOMContentLoaded", restoreOptions);
+document.getElementById("save").addEventListener("click", saveOptions);
