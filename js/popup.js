@@ -3,7 +3,7 @@ displayKeywords();
 
 // 将所有想屏蔽的关键词放在单独的span里显示出来
 function displayKeywords() {
-    // 清除已有的 span 元素，防止重复显示。这里不用jQuery怎么写？
+    // 清除已有的 span 元素，防止重复显示
     $('#display-keywords').empty();
     keywordsDisplay = localStorage.keywords.split(',');
     for(var i = 0; i < keywordsDisplay.length; i++) {
@@ -27,9 +27,9 @@ document.getElementById('new-word').onkeydown = function() {
     document.getElementById('save').click();
 };
 
-document.getElementById('save').onclick = function(){
-    console.log(localStorage.keywords);
-    var newWord = document.getElementById('new-word').value;
+$('#save').click(function(){
+    var $newWordInput = $('#new-word');
+    var newWord = $newWordInput.val();
 
     if (newWord !== ' ') {  // 这个判断用于防止把空格作为关键字
         if (localStorage.keywords && localStorage.keywords !== '') {
@@ -42,10 +42,10 @@ document.getElementById('save').onclick = function(){
         } else {
             localStorage.keywords = newWord;
         }
-        document.getElementById('new-word').value = "";
+        $newWordInput.val("");
         displayKeywords();
     }
-};
+});
 
 // 从localStorage中删除一个关键词
 function removeFromLocalStorage(value) {
