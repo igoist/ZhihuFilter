@@ -14,11 +14,11 @@ chrome.runtime.sendMessage({method: "getKeywords"}, function (response) {
 
 // 创建用于替换的div，并设置其样式
 var $div = $('<div class="block-info"></div>');
-$div.append($('<p>这里有一个被屏蔽的答案<span></span></p>'));
-$div.append($('<button class="block-btn">手贱一下</button>'));
-$div.css({
-    "backgroundColor" : "#EFF6FA", 
-    "height":"64px"
+$div.append($('<p>这里有一个被屏蔽的答案<span></span></p>'))
+    .append($('<button class="block-btn">手贱一下</button>'))
+    .css({
+        "backgroundColor" : "#EFF6FA",
+        "height":"64px"
 });
 
 // keywords是异步获取的，可能运行至此，值还没有传过来，所以用延时来解决
@@ -57,7 +57,6 @@ var observerOption = {
     'attributes': false
 };
 observer.observe($('#js-home-feed-list')[0], observerOption);
-
 
 var extensionOption = getOptions();
 
