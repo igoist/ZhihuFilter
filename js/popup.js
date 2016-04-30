@@ -22,10 +22,11 @@ function displayKeywords() {
 }
 
 // 在输入框内按下回车会触发按钮单击事件
-document.getElementById('new-word').onkeydown = function() {
-    if (event.keyCode == 13)
-    document.getElementById('save').click();
-};
+$('#new-word').keydown(function(event) {
+    if (event.keyCode === 13) {
+        $('#save').trigger('click');
+    }
+});
 
 $('#save').click(function(){
     var $newWordInput = $('#new-word');
