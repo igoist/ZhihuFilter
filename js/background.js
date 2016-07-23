@@ -8,7 +8,11 @@
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.method == "getKeywords")
-        sendResponse({keywords: localStorage['keywords']});
+        if (localStorage['keywords']) {
+            sendResponse({keywords: localStorage['keywords']});
+        } else {
+            localStorage.setItem('keywords', '');
+        }
     else
         sendResponse({});
 });
