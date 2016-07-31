@@ -12,10 +12,10 @@
 
 ![](demo-images/block1.png)
 
+相关博客：
+[开发一个用于屏蔽知乎网内容的Chrome扩展](http://www.wukai.me/2016/03/25/chrome-extension-zhihufilter/)
 
-【开发仍在进行中……】
-
-## 尚未开发功能及需要改进的地方：
+### 尚未开发功能及需要改进的地方：
 
 - 除了首页外，问题页面是否需要屏蔽关键词
 
