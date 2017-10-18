@@ -9,10 +9,10 @@ function displayKeywords() {
     for(var i = 0; i < keywordsDisplay.length; i++) {
         var wordSpan = document.createElement('span');
         wordSpan.innerHTML = keywordsDisplay[i];
-        wordSpan.className = "item-word";
+        wordSpan.className = 'item-word';
         // 添加关键词右侧的删除按钮
         var removeButton = document.createElement('a');
-        removeButton.className = "remove-button";
+        removeButton.className = 'remove-button';
         removeButton.onclick = function() {
             removeFromLocalStorage(this.parentNode.firstChild.nodeValue);
         };
@@ -36,14 +36,14 @@ $('#save').click(function(){
         if (localStorage.keywords && localStorage.keywords !== '') {
             if (keywordsDisplay.indexOf(newWord) > -1) {
                 // 这里判断元素是否已存在
-                alert(newWord + "已经存在");
+                alert(newWord + '已经存在');
                 return;
             }
             localStorage.keywords += (',' + newWord);
         } else {
             localStorage.keywords = newWord;
         }
-        $newWordInput.val("");
+        $newWordInput.val('');
         displayKeywords();
     }
 });

@@ -28,3 +28,13 @@
 - 正则表达式支持
 
 - icon是显示在地址栏的外部，而不是内部的最右侧（似乎是新版的Chrome特性）
+
+
+
+
+# ZhihuFilter
+<p>This repo is forked from [noiron/ZhihuFilter](https://github.com/noiron/ZhihuFilter), and above is the old description.</p>
+<p>In this repo, I will update, refactor those old codes and the persistently maintenance it.</p>
+
+## Project Plan
+- [ ] 0.1.1 -- Understand old codes & Update first
